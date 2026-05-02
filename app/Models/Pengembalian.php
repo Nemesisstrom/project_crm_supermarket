@@ -6,10 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Pengembalian extends Model
 {
-     protected $table = 'returns';
-    protected $fillable = ['sale_id','customer_id','date','reason','total_return'];
+    protected $table = 'pengembalian';
+    protected $fillable = ['penjualan_id','customer_id','date','reason','total_return'];
 
     public function details(){
-        return $this->hasMany(ReturnDetail::class)
-    }
+        return $this->hasMany(detail_pengembalian::class)
+    };
 }

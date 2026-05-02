@@ -9,7 +9,7 @@ class PengembalianController extends Controller
      public function create($sale_id)
     {
         $sale = Sale::with('details')->findOrFail($sale_id);
-        return view('returns.create', compact('sale'));
+        return view('pengembalian.create', compact('sale'));
     }
 
     public function store(Request $r)
@@ -17,7 +17,7 @@ class PengembalianController extends Controller
         DB::beginTransaction();
 
         try {
-            $return = ReturnModel::create([
+            $pengembalian = PengembalianModel::create([
                 'sale_id' => $r->sale_id,
                 'customer_id' => $r->customer_id,
                 'date' => now(),

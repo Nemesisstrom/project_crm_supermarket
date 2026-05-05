@@ -6,10 +6,27 @@ use Illuminate\Database\Eloquent\Model;
 
 class Pengembalian extends Model
 {
-    protected $table = 'pengembalian';
-    protected $fillable = ['penjualan_id','customer_id','date','reason','total_return'];
+    protected $table = 'detail_pengembalian';
 
-    public function details(){
-        return $this->hasMany(detail_pengembalian::class)
-    };
+    protected $fillable = [
+        'pengembalian_id',
+        'produk_id',
+        'qty',
+        'price',
+        'subtotal'
+    ];
+
+    public function pengembalian()
+    {
+        return $this->belongsTo(Pengembalian::class);
+    }
+    public function customer()
+    {
+        return $this->belongsTo(Customer::class);
+    }
+
+    public function penjualan()
+    {
+        return $this->belongsTo(Penjualan::class);
+    }
 }

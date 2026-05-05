@@ -11,18 +11,19 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('detail_penjualan', function (Blueprint $table) {
-            $table-> id();
+        Schema::create('pengembalian', function (Blueprint $table) {
+            $table->id();
             $table->foreignId('penjualan_id')
                   ->constrained('penjualan')
                   ->cascadeOnDelete();
-            $table->foreignId('produk_id')
-                  ->constrained('produk')
+            $table->foreignId('customer_id')
+                  ->constrained('customers')
                   ->cascadeOnDelete();
-            $table->integer('qty');    
-            $table->decimal('harga');
-            $table->decimal('subtotal');     
-        }); 
+            $table->date('tanggal');
+            $table->text('alasan')->nullable();
+            $table->integer('total_pengembalian');
+            $table->timestamps();
+        });
     }
 
     /**
@@ -30,6 +31,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
+        Schema::dropIfExists('pengembalian');
     }
 };

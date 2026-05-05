@@ -2,64 +2,36 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Dashboard;
+use App\Models\Customer;
+use App\Models\Produk;
+use App\Models\Penjualan;
 use Illuminate\Http\Request;
+use DB;
 
 class DashboardController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        //
-    }
+        $totalCustomer = Customer::count();
+        $totalProduk = Produk::count();
+        $totalPenjualan = Penjualan::count();
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
+        $totalRevenue = Penjualan::sum('total');
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
+        // 📈 Penjualan per bulan
+        $monthlySales = Penjualan::select(
+                DB::raw('MONTH(date) as bulan'),
+                DB::raw('SUM(total) as total')
+            )
+            ->groupBy('bulan')
+            ->get();
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Dashboard $dashboard)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Dashboard $dashboard)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Dashboard $dashboard)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Dashboard $dashboard)
-    {
-        //
+        return response()->json([
+            'total_customer' => $totalCustomer,
+            'total_product' => $totalProduk,
+            'total_sales' => $totaPenjualan,
+            'total_revenue' => $totalRevenue,
+            'monthly_sales' => $monthlySales
+        ]);
     }
 }

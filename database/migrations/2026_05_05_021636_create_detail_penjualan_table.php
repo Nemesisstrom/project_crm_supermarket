@@ -11,22 +11,18 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('pengembalians', function (Blueprint $table) {
-            $table->id();
+       Schema::create('detail_penjualan', function (Blueprint $table) {
+            $table-> id();
             $table->foreignId('penjualan_id')
                   ->constrained('penjualan')
                   ->cascadeOnDelete();
-
-            $table->foreignId('customer_id')
-                  ->constrained('customer')
+            $table->foreignId('produk_id')
+                  ->constrained('produks')
                   ->cascadeOnDelete();
-
-            $table->date('date');
-            $table->text('reason')->nullable();
-            $table->integer('total_return');
-
-            $table->timestamps();
-        });
+            $table->integer('qty');    
+            $table->decimal('harga');
+            $table->decimal('subtotal');     
+        }); 
     }
 
     /**
@@ -34,6 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('pengembalians');
+        Schema::dropIfExists('detail_penjualan');
     }
 };

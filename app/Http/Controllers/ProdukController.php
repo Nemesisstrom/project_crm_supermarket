@@ -2,66 +2,69 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Product;
+use App\Models\Produk;
 use Illuminate\Http\Request;
 
-class ProductController extends Controller
+class ProdukController extends Controller
 {
-    // 🔍 Semua produk
     public function index()
     {
-        return response()->json(Produk::latest()->get());
+        $products = Produk::latest()->paginate(10);
+        return view('produks.index', compact('products'));
     }
 
-    // ➕ Tambah produk
+    public function create()
+    {
+        return view('produks.create');
+    }
+
     public function store(Request $request)
     {
-        $request->validate([
+        $validated = $request->validate([
             'name' => 'required',
             'price' => 'required|numeric',
             'stock' => 'required|integer'
         ]);
 
-        $product = Produk::create($request->all());
+        Produk::create($validated);
 
-        return response()->json([
-            'message' => 'Produk berhasil ditambahkan',
-            'data' => $product
-        ]);
+        return redirect()->route('produks.index')
+            ->with('success', 'Produk berhasil ditambahkan');
     }
 
-    // 🔍 Detail produk
     public function show($id)
     {
-        return response()->json(Produk::findOrFail($id));
+        $produk = Produk::findOrFail($id);
+        return view('produks.show', compact('produk'));
     }
 
-    // ✏️ Update produk
+    public function edit($id)
+    {
+        $produk = Produk::findOrFail($id);
+        return view('produks.edit', compact('produk'));
+    }
+
     public function update(Request $request, $id)
     {
-        $product = Produk::findOrFail($id);
+        $produk = Produk::findOrFail($id);
 
-        $request->validate([
+        $validated = $request->validate([
             'name' => 'required',
             'price' => 'required|numeric',
             'stock' => 'required|integer'
         ]);
 
-        $product->update($request->all());
+        $produk->update($validated);
 
-        return response()->json([
-            'message' => 'Produk berhasil diupdate',
-            'data' => $product
-        ]);
+        return redirect()->route('produks.index')
+            ->with('success', 'Produk berhasil diupdate');
     }
 
-    // 🗑️ Hapus produk
     public function destroy($id)
     {
         Produk::findOrFail($id)->delete();
 
-        return response()->json([
-            'message' => 'Produk berhasil dihapus'
-        ]);
+        return redirect()->route('produks.index')
+            ->with('success', 'Produk berhasil dihapus');
     }
 }

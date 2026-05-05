@@ -7,65 +7,66 @@ use Illuminate\Http\Request;
 
 class CustomerController extends Controller
 {
-    // 🔍 Get semua customer
     public function index()
     {
-        $customers = Customer::latest()->get();
+        $customers = Customer::latest()->paginate(10);
         return view('customers.index', compact('customers'));
     }
 
-    // ➕ Tambah customer
+    public function create()
+    {
+        return view('customers.create');
+    }
+
     public function store(Request $request)
     {
-        $request->validate([
+        $validated = $request->validate([
             'nama' => 'required|string|max:255',
             'email' => 'required|email|unique:customers,email',
             'phone' => 'required',
             'alamat' => 'required'
         ]);
 
-        $customer = Customer::create($request->all());
+        Customer::create($validated);
 
-        return response()->json([
-            'message' => 'Customer berhasil ditambahkan',
-            'data' => $customer
-        ]);
+        return redirect()->route('customers.index')
+            ->with('success', 'Customer berhasil ditambahkan');
     }
 
-    // 🔍 Detail customer
     public function show($id)
     {
         $customer = Customer::findOrFail($id);
-        return response()->json($customer);
+        return view('customers.show', compact('customer'));
     }
 
-    // ✏️ Update customer
+    public function edit($id)
+    {
+        $customer = Customer::findOrFail($id);
+        return view('customers.edit', compact('customer'));
+    }
+
     public function update(Request $request, $id)
     {
         $customer = Customer::findOrFail($id);
 
-        $request->validate([
+        $validated = $request->validate([
             'nama' => 'required',
             'email' => 'required|email|unique:customers,email,' . $id,
             'phone' => 'required',
             'alamat' => 'required'
         ]);
 
-        $customer->update($request->all());
+        $customer->update($validated);
 
-        return response()->json([
-            'message' => 'Customer berhasil diupdate',
-            'data' => $customer
-        ]);
+        return redirect()->route('customers.index')
+            ->with('success', 'Customer berhasil diupdate');
     }
 
-    // 🗑️ Hapus customer
     public function destroy($id)
     {
         Customer::findOrFail($id)->delete();
 
-        return response()->json([
-            'message' => 'Customer berhasil dihapus'
-        ]);
+        return redirect()->route('customers.index')
+            ->with('success', 'Customer berhasil dihapus');
     }
 }

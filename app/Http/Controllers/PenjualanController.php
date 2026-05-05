@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Controller;
 use App\Models\Penjualan;
 use App\Models\DetailPenjualan;
 use App\Models\Customer;
@@ -115,4 +116,4 @@ class PenjualanController extends Controller
                 ->with('error', $e->getMessage());
         }
     }
-}   
+}

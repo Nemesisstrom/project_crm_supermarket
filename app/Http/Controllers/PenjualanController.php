@@ -11,101 +11,90 @@ use Illuminate\Support\Facades\DB;
 
 class PenjualanController extends Controller
 {
-    // 📋 List penjualan
     public function index()
     {
         $penjualans = Penjualan::with('customer')
-                    ->latest()
-                    ->paginate(10);
+            ->latest()
+            ->paginate(10);
 
-        return view('penjualan.index', compact('penjualan'));
+        return view('penjualan.index', compact('penjualans'));
     }
 
-    // ➕ Form tambah
     public function create()
     {
         $customers = Customer::all();
-        $products = Produk::all();
+        $products  = Produk::all();
 
-        return view('penjualan.create', compact('customers','produks'));
+        return view('penjualan.create', compact('customers','products'));
     }
 
-    // 💾 Simpan transaksi
     public function store(Request $request)
     {
-        DB::beginTransaction();
+            DB::beginTransaction();
 
-        try {
-            $penjualan = Penjualan::create([
-                'customer_id' => $request->customer_id,
-                'tanggal' => now(),
-                'total' => 0
-            ]);
-
-            $total = 0;
-
-            foreach ($request->items as $item) {
-
-                $product = Produk::lockForUpdate()->findOrFail($item['product_id']);
-
-                // 🚫 cek stok
-                if ($product->stock < $item['qty']) {
-                    throw new \Exception("Stok {$product->name} tidak cukup");
-                }
-
-                $subtotal = $item['qty'] * $product->price;
-
-                DetailPenjualan::create([
-                    'penjualan_id' => $penjualan->id,
-                    'product_id' => $product->id,
-                    'qty' => $item['qty'],
-                    'price' => $product->price,
-                    'subtotal' => $subtotal
+            try {
+                $penjualan = Penjualan::create([
+                    'customer_id' => $request->customer_id,
+                    'tanggal'     => now(),
+                    'total'       => 0
                 ]);
 
-                // ➖ kurangi stok
-                $product->decrement('stock', $item['qty']);
+                $total = 0;
 
-                $total += $subtotal;
+                foreach ($request->items as $item) {
+                    $product = Produk::lockForUpdate()->findOrFail($item['product_id']);
+
+                    if ($product->stock < $item['qty']) {
+                        throw new \Exception("Stok {$product->name} tidak cukup");
+                    }
+
+                    $subtotal = $item['qty'] * $product->price;
+
+                    DetailPenjualan::create([
+                        'penjualan_id' => $penjualan->id,
+                        'product_id'   => $product->id,
+                        'qty'          => $item['qty'],
+                        'price'        => $product->price,
+                        'subtotal'     => $subtotal
+                    ]);
+
+                    $product->decrement('stock', $item['qty']);
+
+                    $total += $subtotal;
+                }
+
+                $penjualan->update(['total' => $total]);
+
+                DB::commit();
+
+                return redirect()->route('penjualan.index')
+                    ->with('success', 'Transaksi berhasil');
+
+            } catch (\Exception $e) {
+                DB::rollBack();
+
+                return redirect()->back()
+                    ->with('error', $e->getMessage());
             }
-
-            $penjualan->update([
-                'total' => $total
-            ]);
-
-            DB::commit();
-
-            return redirect()->route('penjualan.index')
-                ->with('success', 'Transaksi berhasil');
-
-        } catch (\Exception $e) {
-            DB::rollBack();
-
-            return redirect()->back()
-                ->with('error', $e->getMessage());
         }
-    }
 
-    // 👁️ Detail
-    public function show($id)
-    {
-        $penjualan = Penjualan::with('details.product','customer')
-                    ->findOrFail($id);
+        public function show($id)
+        {
+            $penjualan = Penjualan::with('details.product','customer')
+                ->findOrFail($id);
 
-        return view('penjualan.show', compact('penjualan'));
-    }
+            return view('penjualan.show', compact('penjualan'));
+        }
 
-    // 🗑️ Hapus
-    public function destroy($id)
+        public function destroy($id)
     {
         DB::beginTransaction();
 
         try {
             $penjualan = Penjualan::with('details')->findOrFail($id);
 
-            // 🔄 kembalikan stok
             foreach ($penjualan->details as $detail) {
-                $product = Produk::find($detail->produk_id);
+                $product = Produk::lockForUpdate()->find($detail->product_id);
 
                 if ($product) {
                     $product->increment('stock', $detail->qty);
@@ -117,7 +106,7 @@ class PenjualanController extends Controller
             DB::commit();
 
             return redirect()->back()
-                ->with('success', 'Penjualan berhasil dihapus');
+                ->with('success', 'Penjualan dihapus');
 
         } catch (\Exception $e) {
             DB::rollBack();
@@ -126,4 +115,4 @@ class PenjualanController extends Controller
                 ->with('error', $e->getMessage());
         }
     }
-}
+}   

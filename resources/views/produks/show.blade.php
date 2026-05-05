@@ -1,17 +1,13 @@
-<h1>Data Customer</h1>
+@extends('layouts.app')
 
-<table border="1">
-    <tr>
-        <th>Nama</th>
-        <th>Email</th>
-        <th>Phone</th>
-    </tr>
+@section('content')
 
-    @foreach($customers as $c)
-    <tr>
-        <td>{{ $c->nama }}</td>
-        <td>{{ $c->email }}</td>
-        <td>{{ $c->phone }}</td>
-    </tr>
-    @endforeach
-</table>
+<h1 class="text-xl mb-4">Detail Produk</h1>
+
+<p><b>Nama:</b> {{ $produk->name }}</p>
+<p><b>Harga:</b> Rp {{ number_format($produk->price) }}</p>
+<p><b>Stok:</b> {{ $produk->stock }}</p>
+
+<a href="{{ route('produks.index') }}" class="text-blue-500">Kembali</a>
+
+@endsection

@@ -9,7 +9,6 @@ class CustomerController extends Controller
 {
     public function index()
     {
-        $customers = Customer::latest()->paginate(10);
         return view('customers.index', compact('customers'));
     }
 
@@ -21,7 +20,7 @@ class CustomerController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'nama' => 'required|string|max:255',
+            'nama' => 'required',
             'email' => 'required|email|unique:customers,email',
             'phone' => 'required',
             'alamat' => 'required'

@@ -22,6 +22,15 @@ Route::middleware(['auth'])->group(function () {
 
 });
 
+    // Customers
+    Route::resource('customers', CustomerController::class);
+
+    // Produk
+    Route::resource('produks', ProdukController::class);
+
+    // Penjualan
+    Route::resource('penjualan', PenjualanController::class);
+
     // 🔄 Pengembalian
     Route::get('/retur/{id}', [PengembalianController::class, 'create']);
     Route::post('/retur', [PengembalianController::class, 'store']);
@@ -34,7 +43,5 @@ Route::middleware(['auth'])->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-    // Penjualan
-    Route::resource('penjualan', PenjualanController::class);
 
 require __DIR__.'/auth.php';

@@ -2,7 +2,7 @@
 
 @section('content')
 
-<h1 class="text-xl mb-4">Tambah Customer</h1>
+<h1>Tambah Customer</h1>
 
 <form action="{{ route('customers.store') }}" method="POST">
 @csrf

@@ -9,8 +9,7 @@ class ProdukController extends Controller
 {
     public function index()
     {
-        $products = Produk::latest()->paginate(10);
-        return view('produks.index', compact('products'));
+        return view('produks.index', compact('produks'));
     }
 
     public function create()
@@ -21,9 +20,9 @@ class ProdukController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'name' => 'required',
-            'price' => 'required|numeric',
-            'stock' => 'required|integer'
+            'nama'  => 'required|string|max:255',
+            'harga' => 'required|numeric|min:0',
+            'stok' => 'required|integer|min:0',
         ]);
 
         Produk::create($validated);
@@ -49,9 +48,9 @@ class ProdukController extends Controller
         $produk = Produk::findOrFail($id);
 
         $validated = $request->validate([
-            'name' => 'required',
-            'price' => 'required|numeric',
-            'stock' => 'required|integer'
+            'nama'  => 'required|string|max:255',
+            'harga' => 'required|numeric|min:0',
+            'stok' => 'required|integer|min:0',
         ]);
 
         $produk->update($validated);

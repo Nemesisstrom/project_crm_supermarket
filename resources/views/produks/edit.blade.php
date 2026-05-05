@@ -1,17 +1,21 @@
-<h1>Data Customer</h1>
+@extends('layouts.app')
 
-<table border="1">
-    <tr>
-        <th>Nama</th>
-        <th>Email</th>
-        <th>Phone</th>
-    </tr>
+@section('content')
 
-    @foreach($customers as $c)
-    <tr>
-        <td>{{ $c->nama }}</td>
-        <td>{{ $c->email }}</td>
-        <td>{{ $c->phone }}</td>
-    </tr>
-    @endforeach
-</table>
+<h1 class="text-xl mb-4">Edit Produk</h1>
+
+<form action="{{ route('produks.update', $produk->id) }}" method="POST">
+@csrf
+@method('PUT')
+
+<input type="text" name="name" value="{{ $produk->name }}" class="border p-2 w-full mb-2">
+<input type="number" name="price" value="{{ $produk->price }}" class="border p-2 w-full mb-2">
+<input type="number" name="stock" value="{{ $produk->stock }}" class="border p-2 w-full mb-2">
+
+<button class="bg-blue-500 text-white px-4 py-2 rounded">
+    Update
+</button>
+
+</form>
+
+@endsection

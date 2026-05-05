@@ -4,8 +4,9 @@
 
 <h1>Edit Customer</h1>
 
-<form action="{{ route('customers.update',$customer->id) }}" method="POST">
-@csrf @method('PUT')
+<form action="{{ route('customers.update', $customer->id) }}" method="POST">
+@csrf
+@method('PUT')
 
 <input type="text" name="nama" value="{{ $customer->nama }}" class="border p-2 w-full mb-2">
 <input type="email" name="email" value="{{ $customer->email }}" class="border p-2 w-full mb-2">

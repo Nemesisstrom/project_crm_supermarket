@@ -21,6 +21,7 @@ return new class extends Migration
                   ->cascadeOnDelete();
             $table->date('tanggal');
             $table->text('alasan')->nullable();
+            $table->enum('status', ['pending', 'approved', 'rejected'])->default('pending'); 
             $table->integer('total_pengembalian');
             $table->timestamps();
         });

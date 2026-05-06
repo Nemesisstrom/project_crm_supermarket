@@ -22,9 +22,14 @@ class Customer extends Model
     // =========================
 
     // 1. Customer punya banyak penjualan
-    public function penjualan()
+    public function customer()
     {
-        return $this->hasMany(Penjualan::class);
+    return $this->belongsTo(Customer::class);
+    }
+
+    public function details()
+    {
+    return $this->hasMany(DetailPenjualan::class);
     }
 
     // 2. Customer punya banyak pengembalian (retur)

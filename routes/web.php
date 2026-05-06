@@ -19,20 +19,31 @@ Route::middleware(['auth'])->group(function () {
 
     Route::resource('customers', CustomerController::class);
     Route::resource('produks', ProdukController::class);
+    Route::resource('penjualan', PenjualanController::class);
+
+    Route::resource('pengembalian', PengembalianController::class);
+
+    // approve retur
+    Route::post('/pengembalian/{id}/approve',
+        [PengembalianController::class, 'approve']
+    )->name('pengembalian.approve');
 
 });
 
     // Customers
     Route::resource('customers', CustomerController::class);
+    Route::get('/customers/{id}/update', [CustomerController::class, 'update'])->name('customers.update'); 
 
     // Produk
     Route::resource('produks', ProdukController::class);
+    Route::get('/produks/{id}/edit', [ProdukController::class, 'edit'])->name('produks.edit');
 
     // Penjualan
     Route::resource('penjualan', PenjualanController::class);
+    Route::get('/penjualan/{id}/show', [PenjualanController::class, 'show'])->name('penjualan.show');
 
     // 🔄 Pengembalian
-    Route::get('/retur/{id}', [PengembalianController::class, 'create']);
+    Route::get('/retur/{id}', [PengembalianController::class, 'create'])->name('pengembalian.create');
     Route::post('/retur', [PengembalianController::class, 'store']);
 
     // 📥 Import Excel

@@ -98,9 +98,9 @@ class PengembalianController extends Controller
                     ->with('error', 'Retur sudah di-approve');
             }
 
-            $productIds = $return->details->pluck('product_id');
+           $productIds = $return->details->pluck('product_id');
 
-            $products = Produk::whereIn('id', $productIds)
+            $product = Produk::whereIn('id', $productIds)
                         ->lockForUpdate()
                         ->get()
                         ->keyBy('id');

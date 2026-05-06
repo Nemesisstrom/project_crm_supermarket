@@ -1,32 +1,37 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
     <title>CRM Supermarket</title>
+
+    {{-- Tailwind CDN --}}
     <script src="https://cdn.tailwindcss.com"></script>
+
+    {{-- Chart.js --}}
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
+
 <body class="bg-gray-100">
 
 <div class="flex">
-    <!-- Sidebar -->
-    <div class="w-64 bg-blue-900 text-white min-h-screen p-4">
-        <h2 class="text-xl font-bold mb-6">CRM</h2>
-        <ul>
-            <li class="mb-3"><a href="/dashboard">Dashboard</a></li>
-            <li class="mb-3"><a href="/customers">Customers</a></li>
-            <li class="mb-3"><a href="/produks">Produks</a></li>
+
+    {{-- SIDEBAR --}}
+    <div class="w-64 bg-gray-900 text-white min-h-screen p-4">
+        <h1 class="text-xl font-bold mb-6">CRM Supermarket</h1>
+
+        <ul class="space-y-3">
+            <li><a href="{{ route('dashboard') }}" class="block hover:text-yellow-400">Dashboard</a></li>
+            <li><a href="{{ route('customers.index') }}" class="block hover:text-yellow-400">Customer</a></li>
+            <li><a href="{{ route('produks.index') }}" class="block hover:text-yellow-400">Produk</a></li>
+            <li><a href="{{ route('penjualan.index') }}" class="block hover:text-yellow-400">Penjualan</a></li>
         </ul>
     </div>
 
-    <!-- Content -->
+    {{-- CONTENT --}}
     <div class="flex-1 p-6">
-        @if(session('success'))
-            <div class="bg-green-200 p-3 mb-4 rounded">
-                {{ session('success') }}
-            </div>
-        @endif
-
         @yield('content')
     </div>
+
 </div>
 
 </body>

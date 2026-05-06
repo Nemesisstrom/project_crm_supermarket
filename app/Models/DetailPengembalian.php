@@ -10,7 +10,7 @@ class DetailPengembalian extends Model
 
     protected $fillable = [
         'pengembalian_id',
-        'produk_id',
+        'product_id',
         'qty',
         'price',
         'subtotal'
@@ -21,14 +21,8 @@ class DetailPengembalian extends Model
         return $this->belongsTo(Pengembalian::class);
     }
 
-    public function produk()
+    public function product()
     {
         return $this->belongsTo(Produk::class);
     }
-    public function detailPengembalian()
-    {
-        return $this->hasMany(DetailPengembalian::class);
-    }
-
-    
 }

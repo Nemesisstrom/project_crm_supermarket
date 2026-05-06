@@ -98,11 +98,12 @@ class PenjualanController extends Controller
                 $product = Produk::lockForUpdate()->find($detail->product_id);
 
                 if ($product) {
-                    $product->increment('stock', $detail->qty);
+                    $product->increment('stok', $detail->qty);
                 }
             }
 
-            $penjualan->delete();
+            $penjualan->details()->delete();
+
 
             DB::commit();
 

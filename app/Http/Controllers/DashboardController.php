@@ -11,15 +11,18 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        $totalCustomer   = Customer::query()->count();
-        $totalProduk     = Produk::query()->count();
-        $totalPenjualan  = Penjualan::query()->count();
-        $totalRevenue    = Penjualan::query()->sum('total');
+        $totalCustomer = Customer::count();
+        $totalProduk = Produk::count();
+        $totalPenjualan = Penjualan::count();
+        $totalPengembalian = Pengembalian::count();
+
+        $totalRevenue = Penjualan::sum('total');
 
         return view('dashboard', compact(
             'totalCustomer',
             'totalProduk',
             'totalPenjualan',
+            'totalPengembalian',
             'totalRevenue'
         ));
     }

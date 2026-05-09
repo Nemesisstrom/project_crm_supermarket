@@ -11,9 +11,13 @@ return new class extends Migration
         Schema::create('customers', function (Blueprint $table) {
 
             $table->id();
+
             $table->string('nama');
+
             $table->string('email')->unique();
+
             $table->string('phone');
+
             $table->text('alamat');
 
             $table->timestamps();

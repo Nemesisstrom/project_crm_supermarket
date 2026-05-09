@@ -128,7 +128,21 @@
             <button type="submit" class="btn btn-success w-100 btn-login">
                 Login Dashboard
             </button>
+
+            <div class="text-center mt-4">
+
+                <span class="text-muted">
+                    Belum punya akun?
+                </span>
+
+                <a href="{{ route('register') }}"
+                class="text-success fw-bold text-decoration-none">
+                    Daftar Sekarang
+                </a>
+
+            </div>
         </form>
+
 
     </div>
 </div>

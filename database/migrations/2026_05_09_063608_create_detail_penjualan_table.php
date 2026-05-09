@@ -19,10 +19,10 @@ return new class extends Migration
             $table->foreignId('produk_id')
                   ->constrained('produks')
                   ->cascadeOnDelete();
-            $table->integer('qty');    
+            $table->integer('qty');
             $table->decimal('harga');
-            $table->decimal('subtotal');     
-        }); 
+            $table->decimal('subtotal');
+        });
     }
 
     /**

@@ -3,8 +3,46 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Customer;
+use App\Models\DetailPenjualan;
 
-class Produk extends Model
+class Penjualan extends Model
 {
-    protected $fillable = ['nama','harga','stok'];
+    protected $table = 'penjualan';
+
+    protected $fillable = [
+        'customer_id',
+        'tanggal',
+        'total'
+    ];
+
+    /*
+    |--------------------------------------------------------------------------
+    | RELATION CUSTOMER
+    |--------------------------------------------------------------------------
+    */
+    public function customer()
+    {
+        return $this->belongsTo(Customer::class);
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | RELATION DETAIL PENJUALAN
+    |--------------------------------------------------------------------------
+    */
+    public function details()
+    {
+        return $this->hasMany(DetailPenjualan::class);
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | RELATION PENGEMBALIAN
+    |--------------------------------------------------------------------------
+    */
+    public function pengembalian()
+    {
+        return $this->hasMany(Pengembalian::class);
+    }
 }

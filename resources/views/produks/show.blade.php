@@ -4,7 +4,7 @@
 
 <h1 class="text-xl mb-4">Detail Produk</h1>
 
-<p><b>Nama:</b> {{ $produk->name }}</p>
+<p><b>Nama_Produk:</b> {{ $produk->name }}</p>
 <p><b>Harga:</b> Rp {{ number_format($produk->price) }}</p>
 <p><b>Stok:</b> {{ $produk->stock }}</p>
 

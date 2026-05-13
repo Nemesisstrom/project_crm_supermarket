@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('nama_produk');
             $table->integer('harga');
             $table->integer('stok');
+            $table->string('currency')->default('IDR');
             $table->timestamps();
         });
     }

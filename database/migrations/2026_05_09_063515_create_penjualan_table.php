@@ -21,6 +21,14 @@ return new class extends Migration
 
             $table->integer('total');
 
+            $table->string('currency')->default('IDR');
+
+            $table->decimal('exchange_rate', 15,2)
+                ->default(1);
+
+            $table->decimal('grand_total_idr', 15,2)
+                ->default(0);
+
             $table->timestamps();
         });
     }

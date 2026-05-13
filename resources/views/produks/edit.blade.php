@@ -8,11 +8,25 @@
 @csrf
 @method('PUT')
 
-<input type="text" name="name" value="{{ $produk->name }}" class="border p-2 w-full mb-2">
-<input type="number" name="price" value="{{ $produk->price }}" class="border p-2 w-full mb-2">
-<input type="number" name="stock" value="{{ $produk->stock }}" class="border p-2 w-full mb-2">
+<input type="text" name="nama_produk" value="{{ $produk->nama_produk }}" class="border p-2 w-full mb-2">
+<input type="number" name="harga" value="{{ $produk->harga }}" class="border p-2 w-full mb-2">
+    <div class="mb-3">
 
-<button class="bg-blue-500 text-white px-4 py-2 rounded">
+        <label>Mata Uang</label>
+
+        <select name="currency"
+                class="form-control">
+
+            <option value="IDR">Rupiah</option>
+            <option value="USD">Dollar</option>
+            <option value="EUR">Euro</option>
+
+        </select>
+
+    </div>
+<input type="number" name="stok" value="{{ $produk->stok }}" class="border p-2 w-full mb-2">
+
+<button class="bg-blue-500 text-blue px-4 py-2 rounded">
     Update
 </button>
 

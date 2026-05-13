@@ -4,7 +4,7 @@
 
 <h1 class="text-xl mb-4">Data Penjualan</h1>
 
-<a href="{{ route('penjualan.create') }}" class="bg-blue-500 text-white px-3 py-2 rounded">
+<a href="{{ route('penjualan.create') }}" class="bg-blue-500 text-black px-3 py-2 rounded">
     + Transaksi
 </a>
 

@@ -4,7 +4,7 @@
 
 <h1 class="text-xl mb-4">Data Customer</h1>
 
-<a href="{{ route('customers.create') }}" class="bg-blue-500 text-white px-3 py-2">Tambah</a>
+<a href="{{ route('customers.create') }}" class="bg-blue-500 text-black px-3 py-2">Tambah</a>
 
 <table class="w-full mt-4 border">
     <tr class="bg-gray-200">

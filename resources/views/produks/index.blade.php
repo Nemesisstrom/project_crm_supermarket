@@ -4,13 +4,13 @@
 
 <h1 class="text-xl mb-4">Data Produk</h1>
 
-<a href="{{ route('produks.create') }}" class="bg-blue-500 text-white px-3 py-2 rounded">
+<a href="{{ route('produks.create') }}" class="bg-blue-500 text-black px-3 py-2 rounded">
     + Tambah Produk
 </a>
 
 <table class="w-full mt-4 border bg-white">
-    <tr class="bg-gray-200">
-        <th class="p-2">Nama</th>
+    <tr class="bg-black-200">
+        <th class="p-2">Nama_Produk</th>
         <th>Harga</th>
         <th>Stok</th>
         <th>Aksi</th>

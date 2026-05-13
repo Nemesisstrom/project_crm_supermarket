@@ -158,9 +158,14 @@
         🔄 Pengembalian
     </a>
 
+    <!-- IMPORT KAGGLE -->
+    <a href="/import">
+        📂 Import Kaggle
+    </a>
+
     <form method="POST"
-          action="{{ route('logout') }}"
-          class="logout-btn">
+        action="{{ route('logout') }}"
+        class="logout-btn">
 
         @csrf
 

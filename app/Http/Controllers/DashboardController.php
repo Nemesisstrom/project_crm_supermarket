@@ -9,6 +9,16 @@ use App\Models\Pengembalian;
 
 class DashboardController extends Controller
 {
+    public function admin()
+    {
+        return view('dashboard.admin');
+    }
+
+    public function customer()
+    {
+        return view('dashboard.customer');
+    } 
+
     public function index()
     {
         $totalCustomer = Customer::count();

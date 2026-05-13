@@ -22,14 +22,21 @@ class ProdukController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'nama'  => 'required|string|max:255',
-            'harga' => 'required|numeric|min:0',
-            'stok' => 'required|integer|min:0',
+
+            'nama_produk' => 'required',
+
+            'harga' => 'required|numeric',
+
+            'currency' => 'required',
+
+            'stok' => 'required|integer'
+
         ]);
 
         Produk::create($validated);
 
-        return redirect()->route('produks.index')
+        return redirect()
+            ->route('produks.index')
             ->with('success', 'Produk berhasil ditambahkan');
     }
 

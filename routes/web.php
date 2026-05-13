@@ -8,6 +8,7 @@ use App\Http\Controllers\ProdukController;
 use App\Http\Controllers\PenjualanController;
 use App\Http\Controllers\PengembalianController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ImportController;
 
 /*
 |--------------------------------------------------------------------------
@@ -100,6 +101,21 @@ Route::middleware(['auth'])->group(function () {
 
     Route::delete('/profile', [ProfileController::class, 'destroy'])
         ->name('profile.destroy');
+});
+
+    /*
+    |--------------------------------------------------------------------------
+    | IMPORT / KAGGLE
+    |--------------------------------------------------------------------------
+    */
+Route::post('/import-kaggle',
+    [ImportController::class, 'import']
+)->name('import.kaggle');
+
+Route::get('/import', function () {
+
+    return view('import');
+
 });
 
 /*

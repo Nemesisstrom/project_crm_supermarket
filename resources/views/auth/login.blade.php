@@ -8,68 +8,70 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <style>
+
         body {
-            background: linear-gradient(135deg, #0f172a, #1e293b);
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            background: #f4f6f9;
             font-family: Arial, sans-serif;
         }
 
-        .login-card {
-            width: 100%;
-            max-width: 420px;
-            border-radius: 20px;
-            overflow: hidden;
-            border: none;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-        }
+        .login-box {
 
-        .login-header {
-            background: #22c55e;
-            color: white;
-            padding: 30px;
-            text-align: center;
-        }
+            width: 400px;
 
-        .login-header h2 {
-            margin: 0;
-            font-weight: bold;
-        }
+            margin: 80px auto;
 
-        .login-header p {
-            margin-top: 10px;
-            opacity: 0.9;
-        }
-
-        .login-body {
             background: white;
-            padding: 35px;
+
+            padding: 30px;
+
+            border-radius: 10px;
+
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        .login-box h2 {
+
+            text-align: center;
+
+            margin-bottom: 20px;
         }
 
         .form-control {
-            height: 50px;
-            border-radius: 12px;
+
+            width: 100%;
+
+            padding: 10px;
+
+            margin-bottom: 15px;
+
+            border: 1px solid #ccc;
+
+            border-radius: 5px;
         }
 
-        login:hover {
-            background: #16a34a;
-        }
+        .btn-login {
 
-        .market-icon {
-            fo.btn-login {
-            height: 50px;
-            border-radius: 12px;
-            background: #22c55e;
+            width: 100%;
+
+            padding: 10px;
+
+            background: #28a745;
+
+            color: white;
+
             border: none;
-            font-weight: bold;
+
+            border-radius: 5px;
+
+            cursor: pointer;
         }
 
-        .btnnt-size: 60px;
+        .btn-login:hover {
+
+            background: #218838;
         }
 
-        </style>
+    </style>
 </head>
 <body>
 

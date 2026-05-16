@@ -2,34 +2,117 @@
 
 @section('content')
 
-<h1 class="text-xl mb-4 ">Tambah Produk</h1>
+<div class="container">
 
-<form action="{{ route('produks.store') }}" method="POST">
-@csrf
- 
-    <div class="mb-3">
+    <div class="card shadow">
 
-        <label>Mata Uang</label>
+        <div class="card-header">
+            Tambah Produk
+        </div>
 
-        <select name="currency"
-                class="form-control">
+        <div class="card-body">
 
-            <option value="IDR">Rupiah</option>
-            <option value="USD">Dollar</option>
-            <option value="EUR">Euro</option>
+            <form action="{{ route('produks.store') }}"
+                  method="POST">
 
-        </select>
+                @csrf
+
+                {{-- Nama Produk --}}
+                <div class="mb-3">
+
+                    <label class="form-label">
+
+                        Nama Produk
+
+                    </label>
+
+                    <input type="text"
+                           name="nama_produk"
+                           class="form-control"
+                           placeholder="Masukkan nama produk"
+                           required>
+
+                </div>
+
+                {{-- Harga --}}
+                <div class="mb-3">
+
+                    <label class="form-label">
+
+                        Harga
+
+                    </label>
+
+                    <input type="number"
+                           name="harga"
+                           class="form-control"
+                           required>
+
+                </div>
+
+                {{-- Stok --}}
+                <div class="mb-3">
+
+                    <label class="form-label">
+
+                        Stok
+
+                    </label>
+
+                    <input type="number"
+                           name="stok"
+                           class="form-control"
+                           required>
+
+                </div>
+
+                {{-- Currency --}}
+                <div class="mb-3">
+
+                    <label class="form-label">
+
+                        Mata Uang
+
+                    </label>
+
+                    <select name="currency"
+                            class="form-control">
+
+                        <option value="IDR">
+
+                            Rupiah
+
+                        </option>
+
+                        <option value="USD">
+
+                            Dollar
+
+                        </option>
+
+                        <option value="EUR">
+
+                            Euro
+
+                        </option>
+
+                    </select>
+
+                </div>
+
+                <button type="submit"
+                        class="btn btn-primary">
+
+                    Simpan Produk
+
+                </button>
+
+            </form>
+
+        </div>
 
     </div>
 
-<input type="text" name="nama_produk" placeholder="Nama Produk" class="border p-2 w-full mb-2">
-<input type="number" name="harga" placeholder="Harga" class="border p-2 w-full mb-2">
-<input type="number" name="stok" placeholder="Stok" class="border p-2 w-full mb-2">
-
-<button class="bg-green-500 text-green px-4 py-2 rounded">
-    Simpan
-</button>
-
-</form>
+</div>
 
 @endsection

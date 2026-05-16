@@ -12,6 +12,5 @@ class Produk extends Model
         'harga',
         'currency',
         'stok',
-        'image'
     ];
 }

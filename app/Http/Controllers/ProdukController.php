@@ -2,16 +2,22 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Controller;
+
 use App\Models\Produk;
+
 use Illuminate\Http\Request;
 
 class ProdukController extends Controller
 {
     public function index()
     {
-        $produks = Produk::paginate(10);
+        $produks = Produk::latest()->paginate(10);
 
-        return view('produks.index', compact('produks'));
+        return view(
+            'produks.index',
+            compact('produks')
+        );
     }
 
     public function create()
@@ -22,57 +28,29 @@ class ProdukController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-
-            'nama_produk' => 'required',
-
+            'nama_produk' => 'required|string|max:255',
             'harga' => 'required|numeric',
-
-            'currency' => 'required',
-
-            'stok' => 'required|integer'
-
+            'stok' => 'required|integer',
+            'currency' => 'required'
         ]);
 
-        Produk::create($validated);
+    Produk::create($validated);
 
-        return redirect()
-            ->route('produks.index')
-            ->with('success', 'Produk berhasil ditambahkan');
-    }
+    return redirect()
+        ->route('produks.index')
+        ->with('success', 'Produk berhasil ditambahkan');
 
-    public function show($id)
-    {
-        $produk = Produk::findOrFail($id);
-        return view('produks.show', compact('produk'));
-    }
-
-    public function edit($id)
-    {
-        $produk = Produk::findOrFail($id);
-        return view('produks.edit', compact('produk'));
-    }
-
-    public function update(Request $request, $id)
-    {
-        $produk = Produk::findOrFail($id);
-
-        $validated = $request->validate([
-            'nama'  => 'required|string|max:255',
-            'harga' => 'required|numeric|min:0',
-            'stok' => 'required|integer|min:0',
-        ]);
-
-        $produk->update($validated);
-
-        return redirect()->route('produks.index')
-            ->with('success', 'Produk berhasil diupdate');
     }
 
     public function destroy($id)
     {
         Produk::findOrFail($id)->delete();
 
-        return redirect()->route('produks.index')
-            ->with('success', 'Produk berhasil dihapus');
+        return redirect()
+            ->route('produks.index')
+            ->with(
+                'success',
+                'Produk berhasil dihapus'
+            );
     }
 }
